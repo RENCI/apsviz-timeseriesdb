@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ./django
+      dockerfile: Dockerfile
+    command: gunicorn apsviz_gauges.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/django/web/staticfiles
+      - media_volume:/home/django/web/mediafiles
+    expose:
+      - 8000
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+  db:
+    image: timescale/timescaledb-postgis:latest-pg12
+    ports:
+      - 5432:${SQL_PORT:-5432}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.db
+  nginx:
+    build: 
+      context: .
+      dockerfile: nginx/Dockerfile
+    volumes:
+      - static_volume:/home/django/web/staticfiles
+      - media_volume:/home/django/web/mediafiles
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
