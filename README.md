@@ -1,4 +1,4 @@
-# apsviz-timescaledb
+# apsviz-timeseriesdb
 This repository contains the software for creating a Django Rest Framework application that serves gauge observation data from postgresql/timescaledb/postgis database.
 
 # Development 
@@ -7,7 +7,7 @@ This repository contains the software for creating a Django Rest Framework appli
 
 After downloading or cloning the repository, change your directory to the project root directory:
 
-cd apsviz-timescaledb
+cd apsviz-timeseriesdb
 
 In the project root directory create a file named .env.dev and add the following information to it:
 
