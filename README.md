@@ -28,7 +28,11 @@ In the next step, from the project root directory run docker-compose on the deve
 
 docker-compose up -d --build
 
-After this process has finished run "python manage.py makemigrations" using the docker-compose command:
+After this process has finished run "python manage.py collectstatic" using the docker-compose command:
+
+docker-compose exec web python manage.py collectstatic --no-input --clear
+
+Then run "python manage.py makemigrations" using the docker-compose command:
 
 docker-compose exec web python manage.py makemigrations --noinput
 
