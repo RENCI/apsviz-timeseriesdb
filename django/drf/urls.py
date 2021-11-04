@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.urls import path
 from rest_framework import routers
-from rest_framework_mvt.views import mvt_view_factory
 from . import views
 from .models import nc_gauge_data_geom, noaa_gauge_data_geom 
 
