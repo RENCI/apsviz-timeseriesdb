@@ -1,6 +1,15 @@
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework import serializers
-from .models import nc_gauge_data_geom, noaa_gauge_data_geom
+from .models import gauge_stations_observations, nc_gauge_data_geom, noaa_gauge_data_geom
+
+
+# Serializer for tables holing data downloaded by Jeff's script
+class gauge_stations_observations_Serializer(GeoFeatureModelSerializer):
+    class Meta:
+        model = gauge_stations_observations 
+        geo_field = 'geom'
+        id_field = 'id'
+        fields = ('id','station','time','water_level','lat','lon','name','units','tz','owner','state','county')
 
 # Serializer for FIMAN gauges
 class nc_gauge_data_geom_Serializer(GeoFeatureModelSerializer):

@@ -9,6 +9,50 @@ STATUS_CHOICES = (
     ('p', 'Published')
 )
 
+# Model for station metadata downloaded by Jeff's script
+class gauge_stations(models.Model):
+    id = models.AutoField(primary_key=True)
+    station = models.TextField(20,null=False)
+    lat = models.FloatField()
+    lon = models.FloatField()
+    name = models.TextField(200,null=False)
+    units = models.TextField(10,null=False)
+    tz = models.TextField(8,null=False)
+    owner = models.TextField(20,null=False)
+    state = models.TextField(20,null=True)
+    county = models.TextField(20,null=True)
+    geom = models.PointField(null=False)
+
+# Model for observation data downloaded by Jeff's script
+class gauge_observations(models.Model):
+    id = models.AutoField(primary_key=True)
+    time =  TimescaleDateTimeField(interval="1 day")
+    station = models.TextField(20,null=False)
+    water_level = models.FloatField(null=True)
+
+# Model for combined view of gauge_station and gauge_observations
+class gauge_stations_observations(models.Model):
+    id = models.AutoField(primary_key=True)
+    station = models.TextField(20,null=False)
+    time =  TimescaleDateTimeField(interval="1 day")
+    water_level = models.FloatField(null=True)
+    lat = models.FloatField()
+    lon = models.FloatField()
+    name = models.TextField(200,null=False)
+    units = models.TextField(10,null=False)
+    tz = models.TextField(8,null=False)
+    owner = models.TextField(20,null=False)
+    state = models.TextField(20,null=True)
+    county = models.TextField(20,null=True)
+    geom = models.PointField(null=False)
+
+    objects = models.Manager()
+    timescale = TimescaleManager()
+
+    class Meta:
+        managed = False
+        db_table = "drf_gauge_stations_observations"
+
 # Model for FIMAN gauge geometries.
 class nc_gauge_geom(models.Model):
     id = models.AutoField(primary_key=True)

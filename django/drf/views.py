@@ -6,8 +6,29 @@ from django.contrib.gis.geos import GEOSGeometry,Point
 from rest_framework.decorators import action
 from url_filter.integrations.drf import DjangoFilterBackend
 from rest_framework_gis.filters import InBBoxFilter
-from .serializers import nc_gauge_data_geom_Serializer, noaa_gauge_data_geom_Serializer
-from .models import nc_gauge_data_geom, noaa_gauge_data_geom
+from .serializers import gauge_stations_observations_Serializer, nc_gauge_data_geom_Serializer, noaa_gauge_data_geom_Serializer
+from .models import gauge_stations_observations, nc_gauge_data_geom, noaa_gauge_data_geom
+
+# Django view for All gauge and geometry view
+class drf_gauge_stations_observations_View(viewsets.ModelViewSet):
+    queryset = gauge_stations_observations.objects.all()
+    serializer_class = gauge_stations_observations_Serializer
+    filter_backends = [DjangoFilterBackend, InBBoxFilter]
+    filter_fields = ['id','station','time','water_level','lat','lon','name','units','tz','owner','state','county']
+
+    # Function to enable search by distance from lon/lat point
+    @action(detail=False, methods=['get'])
+    def get_nearest_gauges(self, request):
+        x_coords = request.GET.get('x', None)
+        y_coords = request.GET.get('y', None)
+        if x_coords and y_coords:
+            user_location = Point(float(x_coords), float(y_coords),srid=4326)
+            nearest_five_gauges = gauge_stations_observations.objects.annotate(distance=Distance('geom',user_location)).order_by('distance')[:10]
+            serializer = self.get_serializer_class()
+            serialized = serializer(nearest_five_gauges, many = True)
+            print(nearest_five_gauges)
+            return Response(serialized.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 # Django view for FIMAN gauge and geometry view
 class drf_nc_gauge_data_geom_View(viewsets.ModelViewSet):
