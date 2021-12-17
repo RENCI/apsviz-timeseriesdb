@@ -31,7 +31,7 @@ services:
       - static_volume:/home/django/web/staticfiles
       - media_volume:/home/django/web/mediafiles
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - web
 
