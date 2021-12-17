@@ -17,14 +17,12 @@ from django.conf.urls import url, include
 from django.urls import path
 from rest_framework import routers
 from . import views
-from .models import gauge_stations_observations, nc_gauge_data_geom, noaa_gauge_data_geom 
+from .models import gauge_stations_observations
 
 # Set URL for gauge geometry Django views
 router = routers.DefaultRouter()
 
 router.register(r'gauge_stations_observations', views.drf_gauge_stations_observations_View)
-router.register(r'nc_gauge_data_geom', views.drf_nc_gauge_data_geom_View)
-router.register(r'noaa_gauge_data_geom', views.drf_noaa_gauge_data_geom_View)
 
 urlpatterns = [
     path("api/", include(router.urls)),
