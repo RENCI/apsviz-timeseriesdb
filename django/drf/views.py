@@ -14,7 +14,7 @@ class drf_gauge_stations_observations_View(viewsets.ModelViewSet):
     queryset = gauge_stations_observations.objects.all()
     serializer_class = gauge_stations_observations_Serializer
     filter_backends = [DjangoFilterBackend, InBBoxFilter]
-    filter_fields = ['obs_id','station_id','station_location_id','time','water_level','lat','lon','name','units','tz','owner','source_archive','country','state','county']
+    filter_fields = ['obs_id','station_id','station_location_id','time','water_level','lat','lon','name','units','tz','owner','source_archive','country','state','county','geom']
 
     # Function to enable search by distance from lon/lat point
     @action(detail=False, methods=['get'])
