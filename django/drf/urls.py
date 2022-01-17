@@ -17,12 +17,12 @@ from django.conf.urls import url, include
 from django.urls import path
 from rest_framework import routers
 from . import views
-from .models import gauge_stations_observations
+from .models import gauge_station_source_data
 
 # Set URL for gauge geometry Django views
 router = routers.DefaultRouter()
 
-router.register(r'gauge_stations_observations', views.drf_gauge_stations_observations_View)
+router.register(r'gauge_station_source_data', views.drf_gauge_station_source_data_View)
 
 urlpatterns = [
     path("api/", include(router.urls)),

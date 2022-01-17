@@ -1,13 +1,13 @@
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework import serializers
-from .models import gauge_stations_observations
+from .models import gauge_station_source_data
 
 
 # Serializer for tables holing data downloaded by Jeff's script
-class gauge_stations_observations_Serializer(GeoFeatureModelSerializer):
+class gauge_station_source_data_Serializer(GeoFeatureModelSerializer):
     class Meta:
-        model = gauge_stations_observations 
+        model = gauge_station_source_data 
         geo_field = 'geom'
         id_field = 'obs_id'
-        fields = ('obs_id','station_id','station_location_id','time','water_level','lat','lon','name','units','tz','owner','source_archive','country','state','county')
+        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','units','tz','gauge_owner','data_source','source_name','source_archive','location_name','country','state','county')
 

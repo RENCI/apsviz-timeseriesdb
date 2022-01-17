@@ -10,43 +10,56 @@ STATUS_CHOICES = (
 )
 
 # Model for station metadata downloaded by Jeff's script
-class gauge_stations(models.Model):
+class gauge_station(models.Model):
     station_id = models.AutoField(primary_key=True)
-    station_location_id = models.TextField(20,null=False)
-    lat = models.FloatField()
-    lon = models.FloatField()
-    name = models.TextField(200,null=False)
-    units = models.TextField(10,null=False)
+    station_name = models.TextField(20,null=False) # (original station value, which is a text field )
+    lat = models.FloatField() # ?
+    lon = models.FloatField() # ?
     tz = models.TextField(8,null=False)
-    owner = models.TextField(20,null=False)
-    source_archive = models.TextField(20,null=False)
+    gauge_owner = models.TextField(200,null=False) # (noaa, ncem, usgs...)
+    location_name = models.TextField(200,null=False) # (name from noaa and contrails)
     country = models.TextField(20,null=True)
     state = models.TextField(20,null=True)
     county = models.TextField(20,null=True)
     geom = models.PointField(null=False)
 
-# Model for observation data downloaded by Jeff's script
-class gauge_observations(models.Model):
-    obs_id = models.AutoField(primary_key=True)
+# Model for gauge source data, including ADCIRC data 
+class gauge_source(models.Model):
+    source_id = models.AutoField(primary_key=True)
+    #station_id = models.ForeignKey(gauge_station, on_delete=models.CASCADE) # DO I HAVE TO SPECIFY station_id? NEED TO COME BACK TO THIS.
     station_id = models.IntegerField()
-    station_location_id = models.TextField(20,null=False)
-    time =  TimescaleDateTimeField(interval="1 day")
-    water_level = models.FloatField(null=True)
+    data_source = models.TextField(200,null=False) # (grid names such as hsofs_0, and just gauge) THINK ABOUT TYPE!
+    units = models.TextField(10,null=False)
+    source_name = models.TextField(20,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)
+    source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
 
-# Model for combined view of gauge_station and gauge_observations
-class gauge_stations_observations(models.Model):
-    obs_id = models.IntegerField(primary_key=True)
-    station_id = models.IntegerField() 
-    station_location_id = models.TextField(20,null=False)
+# Model for data data downloaded by Jeff's script
+class gauge_data(models.Model):
+    obs_id = models.AutoField(primary_key=True)
+    #source_id = models.ForeignKey(gauge_source, on_delete=models.CASCADE) # ?? NEED TO COME BACK TO THIS.
+    source_id = models.IntegerField()
+    timemark = models.DateTimeField(null=False)
     time =  TimescaleDateTimeField(interval="1 day")
     water_level = models.FloatField(null=True)
-    lat = models.FloatField()
-    lon = models.FloatField()
-    name = models.TextField(200,null=False)
+ 
+# Model for combined view of gauge_station, gauge_source and gauge_data
+class gauge_station_source_data(models.Model):
+    obs_id = models.IntegerField(primary_key=True)
+    #source_id = models.ForeignKey(gauge_source, on_delete=models.CASCADE) # NEED TO COME BACK TO THIS.
+    source_id = models.IntegerField()
+    #station_id = models.ForeignKey(gauge_station, on_delete=models.CASCADE) # NEED TO COME BACK TO THIS.
+    station_id = models.IntegerField()
+    station_name = models.TextField(20,null=False)
+    timemark = models.DateTimeField(null=True)
+    time =  TimescaleDateTimeField(interval="1 day")
+    water_level = models.FloatField(null=True)
     units = models.TextField(10,null=False)
     tz = models.TextField(8,null=False)
-    owner = models.TextField(20,null=False)
-    source_archive = models.TextField(20,null=False)
+    gauge_owner = models.TextField(200,null=False) # (noaa, ncem, usgs...)
+    data_source = models.TextField(200,null=False) # (grid names such as hsofs_0, and just gauge) THINK ABOUT TYPE!
+    source_name = models.TextField(20,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)
+    source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+    location_name = models.TextField(200,null=False) # (name from noaa and contrails)
     country = models.TextField(20,null=True)
     state = models.TextField(20,null=True)
     county = models.TextField(20,null=True)
@@ -57,5 +70,5 @@ class gauge_stations_observations(models.Model):
 
     class Meta:
         managed = False
-        db_table = "drf_gauge_stations_observations"
+        db_table = "drf_gauge_station_source_data"
 
