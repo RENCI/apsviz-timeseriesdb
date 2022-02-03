@@ -37,5 +37,10 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /projects/ees/TDS/ingest/postgres-data 
   static_volume:
   media_volume:
