@@ -9,6 +9,19 @@ STATUS_CHOICES = (
     ('p', 'Published')
 )
 
+# Model for input gauge data files
+class gauge_data_file(models.Model):
+    file_id = models.AutoField(primary_key=True)
+    dir_path = models.TextField(100,null=False)
+    file_name = models.TextField(100,null=False)
+    data_date_time = models.DateTimeField(null=True) 
+    data_begin_time = models.DateTimeField(null=True)
+    data_end_time = models.DateTimeField(null=True)
+    file_date_time = models.DateTimeField(null=True)
+    source = models.TextField(30,null=False)
+    content_info = models.TextField(30,null=False)
+    ingested = models.BooleanField(null=False)
+ 
 # Model for station metadata downloaded by Jeff's script
 class gauge_station(models.Model):
     station_id = models.AutoField(primary_key=True)
@@ -51,7 +64,7 @@ class gauge_station_source_data(models.Model):
     station_id = models.IntegerField()
     station_name = models.TextField(20,null=False)
     timemark = models.DateTimeField(null=True)
-    time =  TimescaleDateTimeField(interval="1 day")
+    time =  TimescaleDateTimeField(interval="10 day")
     water_level = models.FloatField(null=True)
     tz = models.TextField(8,null=False)
     gauge_owner = models.TextField(200,null=False) # (noaa, ncem, usgs...)
