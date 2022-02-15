@@ -43,7 +43,7 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      #device: /projects/ees/TDS/DataIngesting 
-      device: /Users/jmpmcman/Work/Surge/data/DataIngesting
+      device: /projects/ees/TDS/DataIngesting 
+      #device: /Users/jmpmcman/Work/Surge/data/DataIngesting
   static_volume:
   media_volume:
