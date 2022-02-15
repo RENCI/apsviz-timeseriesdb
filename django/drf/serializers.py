@@ -9,5 +9,5 @@ class gauge_station_source_data_Serializer(GeoFeatureModelSerializer):
         model = gauge_station_source_data 
         geo_field = 'geom'
         id_field = 'obs_id'
-        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','units','tz','gauge_owner','data_source','source_name','source_archive','location_name','country','state','county')
+        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','tz','gauge_owner','data_source','source_name','source_archive','location_name','location_type','country','state','county')
 

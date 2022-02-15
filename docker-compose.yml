@@ -20,7 +20,8 @@ services:
     ports:
       - 5432:${SQL_PORT:-5432}
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data
+      - ingest_data:/home/DataIngesting
     env_file:
       - ./.env.db
   nginx:
@@ -37,10 +38,11 @@ services:
 
 volumes:
   postgres_data:
+  ingest_data:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /projects/ees/TDS/ingest/postgres-data 
+      device: /projects/ees/TDS/DataIngesting 
   static_volume:
   media_volume:
