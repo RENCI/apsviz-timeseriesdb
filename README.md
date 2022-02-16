@@ -66,4 +66,4 @@ Create original station tables by running:
 
 Ingest original station data by running:  
 
-psql_original_gauge_ingest.sh  
+./psql_original_gauge_ingest.sh  
