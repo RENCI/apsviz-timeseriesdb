@@ -9,19 +9,19 @@ STATUS_CHOICES = (
     ('p', 'Published')
 )
 
-# Model for input gauge data files
-class gauge_data_file(models.Model):
+# Model for archiving the harvesting gauge data files meta-data
+class harvest_data_file_meta(models.Model):
     file_id = models.AutoField(primary_key=True)
     dir_path = models.TextField(100,null=False)
     file_name = models.TextField(100,null=False)
     data_date_time = models.DateTimeField(null=True) 
     data_begin_time = models.DateTimeField(null=True)
     data_end_time = models.DateTimeField(null=True)
-    file_date_time = models.DateTimeField(null=True)
     source = models.TextField(30,null=False)
     content_info = models.TextField(30,null=False)
     ingested = models.BooleanField(null=False)
- 
+    overlap_past_file_date_time = models.BooleanField(null=False)
+
 # Model for station metadata downloaded by Jeff's script
 class gauge_station(models.Model):
     station_id = models.AutoField(primary_key=True)

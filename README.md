@@ -1,15 +1,17 @@
 # apsviz-timeseriesdb
 This repository contains the software for creating a Django Rest Framework application that serves gauge observation data from postgresql/timescaledb/postgis database.
 
-# Development 
+# Installation 
 
-## Build docker images and containers for the backend
+## Build docker images and containers for the backend   
 
-After downloading or cloning the repository, change your directory to the project root directory:
+After downloading or cloning the repository, change your directory to the project root directory:  
 
-cd apsviz-timeseriesdb
+### Create .env and .env.db files  
 
-In the project root directory create a file named .env.dev and add the following information to it:
+cd apsviz-timeseriesdb  
+
+In the project root directory create a file named .env and add the following information to it:  
 
 DEBUG=1  
 SECRET_KEY=change_me  
@@ -22,23 +24,46 @@ SQL_HOST=db
 SQL_PORT=5432  
 DATABASE=postgres  
 
-Add your own password.
+Add your own password.  
 
-In the next step, from the project root directory run docker-compose on the development docker-compose.yml file:
+The create a file nameed .env.db and add the following informatio to it:  
 
-docker-compose up -d --build
+POSTGRES_USER=apsviz_gauges  
+POSTGRES_PASSWORD=apsviz_gauges  
+POSTGRES_DB=xxxxxxxxx  
 
-After this process has finished run "python manage.py collectstatic" using the docker-compose command:
+Add your own password as well.  
 
-docker-compose exec web python manage.py collectstatic --no-input --clear
+### Run docker-compose
 
-Then run "python manage.py makemigrations" using the docker-compose command:
+In the next step, from the project root directory run docker-compose on the development docker-compose.yml file:  
 
-docker-compose exec web python manage.py makemigrations --noinput
+docker-compose up -d --build   
 
-The run "python manage.py migrate" using the docker-compose command:
+### Run docker-compose to run Django collectstatic, makemigrations, and migrate  
+ 
+After this process has finished run "python manage.py collectstatic" using the docker-compose command:  
 
-docker-compose exec web python manage.py migrate --no-input
+docker-compose exec web python manage.py collectstatic --no-input --clear  
 
-At this poing the database is ready for ingest of data.
+Then run "python manage.py makemigrations" using the docker-compose command:  
 
+docker-compose exec web python manage.py makemigrations --noinput  
+
+The run "python manage.py migrate" using the docker-compose command:  
+
+docker-compose exec web python manage.py migrate --no-input  
+
+At this poing the database is ready for ingest of data.  
+
+## Ingest orignal station data  
+
+cd original_gauge_ingest  
+
+Create original station tables by running:  
+
+./psql_original_gauge_create.sh  
+
+Ingest original station data by running:  
+
+./psql_original_gauge_ingest.sh  
