@@ -8,9 +8,15 @@ from url_filter.integrations.drf import DjangoFilterBackend
 from rest_framework_gis.filters import InBBoxFilter
 from .serializers import gauge_station_source_data_Serializer
 from .models import gauge_station_source_data
+from rest_framework.pagination import PageNumberPagination
+
+# Change page size dynamically by by using the psize variable in the URL
+class CustomPageNumberPagination(PageNumberPagination):
+    page_size_query_param = 'psize'
 
 # Django view for All gauge and geometry view
 class drf_gauge_station_source_data_View(viewsets.ModelViewSet):
+    pagination_class = CustomPageNumberPagination
     queryset = gauge_station_source_data.objects.all()
     serializer_class = gauge_station_source_data_Serializer
     filter_backends = [DjangoFilterBackend, InBBoxFilter]
