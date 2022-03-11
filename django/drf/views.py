@@ -6,7 +6,7 @@ from django.contrib.gis.geos import GEOSGeometry,Point
 from rest_framework.decorators import action
 from url_filter.integrations.drf import DjangoFilterBackend
 from rest_framework_gis.filters import InBBoxFilter
-from .serializers import gauge_station_source_data_Serializer
+from .serializers import gauge_station_source_data_Serializer, gauge_timemark_Serializer
 from .models import gauge_station_source_data
 from rest_framework.pagination import PageNumberPagination
 
@@ -14,7 +14,9 @@ from rest_framework.pagination import PageNumberPagination
 class CustomPageNumberPagination(PageNumberPagination):
     page_size_query_param = 'psize'
 
-# Django view for All gauge and geometry view
+# Django view for All gauge and geometry view using the gauge_station_source_data_Serializer.
+# The gauge_station_source_data_Serializer uses GeoFeatureModelSerializer which enables
+# spatial searches
 class drf_gauge_station_source_data_View(viewsets.ModelViewSet):
     pagination_class = CustomPageNumberPagination
     queryset = gauge_station_source_data.objects.all()
@@ -36,3 +38,13 @@ class drf_gauge_station_source_data_View(viewsets.ModelViewSet):
             return Response(serialized.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+# Django view for All gauge and geometry view using the gauge_timemark_Serializer.
+# The gauge_timemark_Serializer uses QueryFieldsMixin which enables the selection 
+# of specific fields as output, but it conflicts with GeoFeatureModelSerializer
+# so it has to have its own serializer and view
+class drf_gauge_timemark_View(viewsets.ModelViewSet):
+    pagination_class = CustomPageNumberPagination
+    queryset = gauge_station_source_data.objects.distinct('timemark')
+    serializer_class = gauge_timemark_Serializer
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','tz','gauge_owner','data_source','source_name','source_archive','location_name','location_type','country','state','county']

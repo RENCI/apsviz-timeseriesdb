@@ -40,7 +40,6 @@ class gauge_station(models.Model):
 # Model for gauge source data, including ADCIRC data 
 class gauge_source(models.Model):
     source_id = models.AutoField(primary_key=True)
-    #station_id = models.ForeignKey(gauge_station, on_delete=models.CASCADE) # DO I HAVE TO SPECIFY station_id? NEED TO COME BACK TO THIS.
     station_id = models.IntegerField()
     data_source = models.TextField(200,null=False) # (grid names such as hsofs_0, and just gauge) THINK ABOUT TYPE!
     source_name = models.TextField(20,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)
@@ -49,7 +48,6 @@ class gauge_source(models.Model):
 # Model for data data downloaded by harvest scripts
 class gauge_data(models.Model):
     obs_id = models.AutoField(primary_key=True)
-    #source_id = models.ForeignKey(gauge_source, on_delete=models.CASCADE) # ?? NEED TO COME BACK TO THIS.
     source_id = models.IntegerField()
     timemark = models.DateTimeField(null=False)
     time =  TimescaleDateTimeField(interval="10 day")
@@ -58,9 +56,7 @@ class gauge_data(models.Model):
 # Model for combined view of gauge_station, gauge_source and gauge_data
 class gauge_station_source_data(models.Model):
     obs_id = models.IntegerField(primary_key=True)
-    #source_id = models.ForeignKey(gauge_source, on_delete=models.CASCADE) # NEED TO COME BACK TO THIS.
     source_id = models.IntegerField()
-    #station_id = models.ForeignKey(gauge_station, on_delete=models.CASCADE) # NEED TO COME BACK TO THIS.
     station_id = models.IntegerField()
     station_name = models.TextField(20,null=False)
     timemark = models.DateTimeField(null=True)

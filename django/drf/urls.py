@@ -23,6 +23,7 @@ from .models import gauge_station_source_data
 router = routers.DefaultRouter()
 
 router.register(r'gauge_station_source_data', views.drf_gauge_station_source_data_View)
+router.register(r'gauge_timemark', views.drf_gauge_timemark_View)
 
 urlpatterns = [
     path("api/", include(router.urls)),
