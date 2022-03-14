@@ -22,8 +22,8 @@ from .models import gauge_station_source_data
 # Set URL for gauge geometry Django views
 router = routers.DefaultRouter()
 
-router.register(r'gauge_station_source_data', views.drf_gauge_station_source_data_View)
-router.register(r'gauge_timemark', views.drf_gauge_timemark_View)
+router.register(r'gauge_timemark', views.drf_gauge_timemark_View, 'gauge_timemark')
+router.register(r'gauge_station_source_data', views.drf_gauge_station_source_data_View, 'gauge_station_source_data')
 
 urlpatterns = [
     path("api/", include(router.urls)),
