@@ -60,6 +60,10 @@ At this poing the database is ready for ingest of data.
 
 cd original_gauge_ingest  
 
+Copy CSV files to container:  
+
+./docker_cp_csv.sh  
+
 Create original station tables by running:  
 
 ./psql_original_gauge_create.sh  
