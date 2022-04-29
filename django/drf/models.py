@@ -17,8 +17,9 @@ class harvest_data_file_meta(models.Model):
     data_date_time = models.DateTimeField(null=True) 
     data_begin_time = models.DateTimeField(null=True)
     data_end_time = models.DateTimeField(null=True)
-    source = models.TextField(30,null=False)
-    content_info = models.TextField(30,null=False)
+    data_source = models.TextField(30,null=False)
+    source_name = models.TextField(30,null=False)
+    source_archive = models.TextField(30,null=False)
     ingested = models.BooleanField(null=False)
     overlap_past_file_date_time = models.BooleanField(null=False)
 
@@ -29,8 +30,8 @@ class gauge_station(models.Model):
     lat = models.FloatField() # ?
     lon = models.FloatField() # ?
     tz = models.TextField(8,null=False)
-    gauge_owner = models.TextField(200,null=False) # (noaa, ncem, usgs...)
-    location_name = models.TextField(200,null=False) # (name from noaa and contrails)
+    gauge_owner = models.TextField(200,null=False) 
+    location_name = models.TextField(200,null=False) 
     location_type = models.TextField(8,null=False)
     country = models.TextField(20,null=True)
     state = models.TextField(20,null=True)

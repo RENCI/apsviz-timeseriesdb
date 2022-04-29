@@ -4,6 +4,7 @@ djangorestframework==3.12.2
 djangorestframework-gis==0.17
 django-url-filter==0.3.15
 djangorestframework-queryfields==1.0.0
+djangorestframework-csv==2.1.1
 djangorestframework-jwt==1.11.0
 django-timescaledb==0.2.10
 django-cors-headers==3.7.0
