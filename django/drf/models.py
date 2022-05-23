@@ -46,6 +46,16 @@ class gauge_source(models.Model):
     source_name = models.TextField(20,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)
     source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
 
+# Table to hold meta-data on adcirc model run
+class adcirc_model_run(models.Model):
+    source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+    run_name = models.TextField(20,null=False) # (nowcast, namforecast...?)
+    grid_name = models.TextField(20,null=False) # (hsofs, ec95d...??)
+    run_type = models.TextField(20,null=False) # (nowcast, forecast...?)
+    initial_datetime = models.DateTimeField(null=False)
+    start_datetime = models.DateTimeField(null=False)
+    end_datetime = models.DateTimeField(null=False)
+
 # Model for data data downloaded by harvest scripts
 class gauge_data(models.Model):
     obs_id = models.AutoField(primary_key=True)
