@@ -45,6 +45,7 @@ class gauge_source(models.Model):
     data_source = models.TextField(200,null=False) # (grid names such as hsofs_0, and just gauge) THINK ABOUT TYPE!
     source_name = models.TextField(20,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)
     source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+    units = models.TextField(10,null=True)
 
 # Model for data data downloaded by harvest scripts
 class gauge_data(models.Model):
@@ -53,6 +54,8 @@ class gauge_data(models.Model):
     timemark = models.DateTimeField(null=False)
     time =  TimescaleDateTimeField(interval="10 day")
     water_level = models.FloatField(null=True)
+    wind_speed = models.FloatField(null=True)
+    air_pressure = models.FloatField(null=True)
  
 # Model for combined view of gauge_station, gauge_source and gauge_data
 class gauge_station_source_data(models.Model):
@@ -63,7 +66,10 @@ class gauge_station_source_data(models.Model):
     timemark = models.DateTimeField(null=True)
     time =  TimescaleDateTimeField(interval="10 day")
     water_level = models.FloatField(null=True)
+    wind_speed = models.FloatField(null=True)
+    air_pressure = models.FloatField(null=True)
     tz = models.TextField(8,null=False)
+    units = models.TextField(10,null=True)
     gauge_owner = models.TextField(200,null=False) # (noaa, ncem, usgs...)
     data_source = models.TextField(200,null=False) # (grid names such as hsofs_0, and just gauge) THINK ABOUT TYPE!
     source_name = models.TextField(20,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)

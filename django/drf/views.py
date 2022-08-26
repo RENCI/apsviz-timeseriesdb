@@ -6,8 +6,8 @@ from django.contrib.gis.geos import GEOSGeometry,Point
 from rest_framework.decorators import action
 from url_filter.integrations.drf import DjangoFilterBackend
 from rest_framework_gis.filters import InBBoxFilter
-from .serializers import gauge_station_source_data_Serializer, gauge_timemark_Serializer
-from .models import gauge_station_source_data
+from .serializers import gauge_station_source_data_Serializer, gauge_timemark_Serializer, gauge_station_Serializer
+from .models import gauge_station_source_data, gauge_station
 from rest_framework.pagination import PageNumberPagination
 
 # Change page size dynamically by by using the psize variable in the URL
@@ -22,7 +22,7 @@ class drf_gauge_station_source_data_View(viewsets.ModelViewSet):
     queryset = gauge_station_source_data.objects.all()
     serializer_class = gauge_station_source_data_Serializer
     filter_backends = [DjangoFilterBackend, InBBoxFilter]
-    filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','tz','gauge_owner','data_source','source_name','source_archive','location_name','location_type','country','state','county','geom']
+    filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','wind_speed','air_pressure','tz','units','gauge_owner','data_source','source_name','source_archive','location_name','location_type','country','state','county','geom']
 
     # Function to enable search by distance from lon/lat point
     @action(detail=False, methods=['get'])
@@ -48,3 +48,10 @@ class drf_gauge_timemark_View(viewsets.ModelViewSet):
     serializer_class = gauge_timemark_Serializer
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','tz','gauge_owner','data_source','source_name','source_archive','location_name','location_type','country','state','county']
+
+class drf_gauge_station_View(viewsets.ModelViewSet):
+    pagination_class = CustomPageNumberPagination
+    queryset = gauge_station.objects.all()
+    serializer_class = gauge_station_Serializer
+    filter_backends = [DjangoFilterBackend, InBBoxFilter]
+    filter_fields = ['station_id','station_name','tz','gauge_owner','location_name','location_type','country','state','county','geom']
