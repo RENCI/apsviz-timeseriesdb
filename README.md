@@ -26,7 +26,7 @@ DATABASE=postgres
 
 Add your own password.  
 
-The create a file nameed .env.db and add the following informatio to it:  
+Then create a file nameed .env.db and add the following information to it:  
 
 POSTGRES_USER=apsviz_gauges  
 POSTGRES_PASSWORD=apsviz_gauges  
@@ -54,9 +54,9 @@ The run "python manage.py migrate" using the docker-compose command:
 
 docker-compose exec web python manage.py migrate --no-input  
 
-At this poing the database is ready for ingest of data.  
+At this point the database is ready to ingest data.  
 
-## Ingest orignal station data  
+## Ingest original station data  
 
 cd original_gauge_ingest  
 
