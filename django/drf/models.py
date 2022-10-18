@@ -9,6 +9,13 @@ STATUS_CHOICES = (
     ('p', 'Published')
 )
 
+# Model for source meta, which is used as input for scripts
+class source_meta(models.Model):
+    data_source = models.TextField(30,null=False)
+    source_name = models.TextField(20,null=False)
+    source_archive = models.TextField(15,null=False)
+    location_type = models.TextField(10,null=False)
+
 # Model for archiving the harvesting gauge data files meta-data
 class harvest_data_file_meta(models.Model):
     file_id = models.AutoField(primary_key=True)

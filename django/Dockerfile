@@ -3,7 +3,7 @@
 ###########
 
 # pull official base image
-FROM python:3.7 as builder
+FROM python:3.9 as builder
 
 # set work directory
 WORKDIR /usr/src/django
@@ -31,7 +31,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/django/wheels -r req
 #########
 
 # pull official base image
-FROM python:3.7
+FROM python:3.9
 
 # create directory for the django user
 RUN mkdir -p /home/django
