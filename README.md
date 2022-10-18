@@ -40,22 +40,6 @@ In the next step, from the project root directory run docker-compose on the deve
 
 docker-compose up -d --build   
 
-### Run docker-compose to run Django collectstatic, makemigrations, and migrate  
- 
-After this process has finished run "python manage.py collectstatic" using the docker-compose command:  
-
-docker-compose exec web python manage.py collectstatic --no-input --clear  
-
-Then run "python manage.py makemigrations" using the docker-compose command:  
-
-docker-compose exec web python manage.py makemigrations --noinput  
-
-The run "python manage.py migrate" using the docker-compose command:  
-
-docker-compose exec web python manage.py migrate --no-input  
-
-At this point the database is ready to ingest data.  
-
 ## Ingest original station data  
 
 cd original_gauge_ingest  

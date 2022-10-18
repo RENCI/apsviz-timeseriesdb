@@ -5,7 +5,11 @@ services:
     build:
       context: ./django
       dockerfile: Dockerfile
-    command: gunicorn apsviz_gauges.wsgi:application --bind 0.0.0.0:8000
+    command: >
+        bash -c "python manage.py collectstatic --no-input --clear &&
+        python manage.py makemigrations --noinput &&
+        python manage.py migrate --no-input && 
+        gunicorn apsviz_gauges.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - static_volume:/home/django/web/staticfiles
       - media_volume:/home/django/web/mediafiles
