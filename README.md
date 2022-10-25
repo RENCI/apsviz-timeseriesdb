@@ -40,18 +40,3 @@ In the next step, from the project root directory run docker-compose on the deve
 
 docker-compose up -d --build   
 
-## Ingest original station data  
-
-cd original_gauge_ingest  
-
-Copy CSV files to container:  
-
-./docker_cp_csv.sh  
-
-Create original station tables by running:  
-
-./psql_original_gauge_create.sh  
-
-Ingest original station data by running:  
-
-./psql_original_gauge_ingest.sh  
