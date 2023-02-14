@@ -14,6 +14,7 @@ class source_meta(models.Model):
     data_source = models.TextField(30,null=False)
     source_name = models.TextField(20,null=False)
     source_archive = models.TextField(15,null=False)
+    source_variable = models.TextField(15,null=False)
     filename_variable = models.TextField(100,null=False)
     location_type = models.TextField(10,null=False)
 
