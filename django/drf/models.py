@@ -17,6 +17,7 @@ class source_meta(models.Model):
     source_variable = models.TextField(15,null=False)
     filename_variable = models.TextField(100,null=False)
     location_type = models.TextField(10,null=False)
+    units = models.TextField(10,null=True)
 
 # Model for archiving the harvesting gauge data files meta-data
 class harvest_data_file_meta(models.Model):
