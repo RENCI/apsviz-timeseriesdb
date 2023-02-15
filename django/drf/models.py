@@ -15,7 +15,7 @@ class source_meta(models.Model):
     source_name = models.TextField(20,null=False)
     source_archive = models.TextField(15,null=False)
     source_variable = models.TextField(15,null=False)
-    filename_variable = models.TextField(100,null=False)
+    filename_prefix = models.TextField(100,null=False)
     location_type = models.TextField(10,null=False)
     units = models.TextField(10,null=True)
 
@@ -46,7 +46,7 @@ class gauge_station(models.Model):
     country = models.TextField(20,null=True)
     state = models.TextField(20,null=True)
     county = models.TextField(20,null=True)
-    apsviz_station = models.BooleanField(null=False)
+    apsviz_station = models.BooleanField(null=True)
     geom = models.PointField(null=False)
 
     class Meta:
