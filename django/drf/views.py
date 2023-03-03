@@ -19,7 +19,7 @@ class CustomPageNumberPagination(PageNumberPagination):
 # spatial searches
 class drf_gauge_station_source_data_View(viewsets.ModelViewSet):
     pagination_class = CustomPageNumberPagination
-    queryset = gauge_station_source_data.objects.all()
+    queryset = gauge_station_source_data.objects.all().order_by('time')
     serializer_class = gauge_station_source_data_Serializer
     filter_backends = [DjangoFilterBackend, InBBoxFilter]
     filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','flow_volume','tz','units','gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station','country','state','county','geom']
