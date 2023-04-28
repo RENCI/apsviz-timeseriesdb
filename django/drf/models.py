@@ -113,3 +113,23 @@ class gauge_station_source_data(models.Model):
         managed = False
         db_table = "drf_gauge_station_source_data"
 
+# Model for station metadata downloaded by Jeff's script
+class apsviz_station(models.Model):
+    station_id = models.AutoField(primary_key=True)
+    station_name = models.TextField(20,null=False) # (original station value, which is a text field )
+    lat = models.FloatField() # ?
+    lon = models.FloatField() # ?
+    name = models.TextField(30,null=False)
+    units = models.TextField(10,null=True) 
+    tz = models.TextField(8,null=False)
+    owner = models.TextField(30,null=False)
+    state = models.TextField(20,null=True)
+    county = models.TextField(20,null=True)
+    site = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?) 
+    node = models.TextField(20,null=True) 
+    model_run = models.TextField(40,null=True)
+    geom = models.PointField(null=False)
+
+    class Meta:
+        indexes = [models.Index(fields=['station_id', 'station_name', 'geom']),]
+
