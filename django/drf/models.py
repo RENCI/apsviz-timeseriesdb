@@ -17,6 +17,7 @@ class source_meta(models.Model):
     source_variable = models.TextField(15,null=False)
     filename_prefix = models.TextField(100,null=False)
     location_type = models.TextField(10,null=False)
+    data_type = models.TextField(6,null=False)
     units = models.TextField(10,null=True)
 
 # Model for archiving the harvesting gauge data files meta-data
@@ -32,6 +33,20 @@ class harvest_data_file_meta(models.Model):
     source_archive = models.TextField(30,null=False)
     ingested = models.BooleanField(null=False)
     overlap_past_file_date_time = models.BooleanField(null=False)
+
+# Model for archiving the harvesting gauge data files meta-data
+class harvest_station_file_meta(models.Model):
+    file_id = models.AutoField(primary_key=True)
+    dir_path = models.TextField(100,null=False)
+    file_name = models.TextField(100,null=False)
+    data_date_time = models.DateTimeField(null=True)
+    data_source = models.TextField(30,null=False)
+    source_name = models.TextField(30,null=False)
+    source_archive = models.TextField(30,null=False)
+    model_run_id = models.TextField(40,null=True)
+    variable_type = models.TextField(20,null=True)
+    csvurl =  models.TextField(100,null=True)
+    ingested = models.BooleanField(null=False)
 
 # Model for station metadata downloaded by Jeff's script
 class gauge_station(models.Model):
@@ -49,6 +64,28 @@ class gauge_station(models.Model):
     apsviz_station = models.BooleanField(null=True)
     geom = models.PointField(null=False)
 
+    class Meta:
+        indexes = [models.Index(fields=['station_id', 'station_name', 'geom']),]
+
+# Model for station metadata downloaded by Jeff's script
+class apsviz_station(models.Model):
+    station_id = models.AutoField(primary_key=True)
+    station_name = models.TextField(20,null=False) # (original station value, which is a text field )
+    lat = models.FloatField() # ?
+    lon = models.FloatField() # ?
+    name = models.TextField(30,null=False)
+    units = models.TextField(10,null=True) 
+    tz = models.TextField(8,null=False)
+    owner = models.TextField(30,null=False)
+    state = models.TextField(20,null=True)
+    county = models.TextField(20,null=True)
+    site = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+    node = models.TextField(20,null=True)
+    geom = models.PointField(null=False)
+    model_run_id = models.TextField(40,null=True)
+    variable_type = models.TextField(20,null=True)
+    csvurl =  models.TextField(100,null=True)
+    
     class Meta:
         indexes = [models.Index(fields=['station_id', 'station_name', 'geom']),]
 
@@ -112,24 +149,4 @@ class gauge_station_source_data(models.Model):
     class Meta:
         managed = False
         db_table = "drf_gauge_station_source_data"
-
-# Model for station metadata downloaded by Jeff's script
-class apsviz_station(models.Model):
-    station_id = models.AutoField(primary_key=True)
-    station_name = models.TextField(20,null=False) # (original station value, which is a text field )
-    lat = models.FloatField() # ?
-    lon = models.FloatField() # ?
-    name = models.TextField(30,null=False)
-    units = models.TextField(10,null=True) 
-    tz = models.TextField(8,null=False)
-    owner = models.TextField(30,null=False)
-    state = models.TextField(20,null=True)
-    county = models.TextField(20,null=True)
-    site = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?) 
-    node = models.TextField(20,null=True) 
-    model_run = models.TextField(40,null=True)
-    geom = models.PointField(null=False)
-
-    class Meta:
-        indexes = [models.Index(fields=['station_id', 'station_name', 'geom']),]
 
