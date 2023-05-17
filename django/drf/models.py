@@ -34,8 +34,8 @@ class harvest_data_file_meta(models.Model):
     ingested = models.BooleanField(null=False)
     overlap_past_file_date_time = models.BooleanField(null=False)
 
-# Model for archiving the harvesting gauge data files meta-data
-class harvest_station_file_meta(models.Model):
+# Model for archiving the apsViz station files meta-data
+class apsviz_station_file_meta(models.Model):
     file_id = models.AutoField(primary_key=True)
     dir_path = models.TextField(100,null=False)
     file_name = models.TextField(100,null=False)
@@ -44,6 +44,7 @@ class harvest_station_file_meta(models.Model):
     source_name = models.TextField(30,null=False)
     source_archive = models.TextField(30,null=False)
     model_run_id = models.TextField(40,null=True)
+    timemark = models.DateTimeField(null=False)
     variable_type = models.TextField(20,null=True)
     csvurl =  models.TextField(100,null=True)
     ingested = models.BooleanField(null=False)
@@ -82,6 +83,7 @@ class apsviz_station(models.Model):
     site = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
     node = models.TextField(20,null=True)
     geom = models.PointField(null=False)
+    timemark = models.DateTimeField(null=False)
     model_run_id = models.TextField(40,null=True)
     variable_type = models.TextField(20,null=True)
     csvurl =  models.TextField(100,null=True)
