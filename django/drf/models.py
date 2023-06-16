@@ -11,7 +11,7 @@ STATUS_CHOICES = (
 
 # Model for source meta, which is used as input for scripts
 class source_meta(models.Model):
-    data_source = models.TextField(30,null=False)
+    data_source = models.TextField(200,null=False)
     source_name = models.TextField(20,null=False)
     source_archive = models.TextField(15,null=False)
     source_variable = models.TextField(15,null=False)
@@ -28,7 +28,7 @@ class harvest_data_file_meta(models.Model):
     data_date_time = models.DateTimeField(null=True) 
     data_begin_time = models.DateTimeField(null=True)
     data_end_time = models.DateTimeField(null=True)
-    data_source = models.TextField(30,null=False)
+    data_source = models.TextField(200,null=False)
     source_name = models.TextField(30,null=False)
     source_archive = models.TextField(30,null=False)
     ingested = models.BooleanField(null=False)
@@ -40,9 +40,10 @@ class apsviz_station_file_meta(models.Model):
     dir_path = models.TextField(100,null=False)
     file_name = models.TextField(100,null=False)
     data_date_time = models.DateTimeField(null=True)
-    data_source = models.TextField(30,null=False)
+    data_source = models.TextField(200,null=False)
     source_name = models.TextField(30,null=False)
     source_archive = models.TextField(30,null=False)
+    grid_name = models.TextField(30,null=False)
     model_run_id = models.TextField(40,null=True)
     timemark = models.DateTimeField(null=False)
     variable_type = models.TextField(20,null=True)
@@ -85,6 +86,8 @@ class apsviz_station(models.Model):
     geom = models.PointField(null=False)
     timemark = models.DateTimeField(null=False)
     model_run_id = models.TextField(40,null=True)
+    data_source = models.TextField(200,null=False)
+    grid_name = models.TextField(30,null=False)
     variable_type = models.TextField(20,null=True)
     csvurl =  models.TextField(100,null=True)
     

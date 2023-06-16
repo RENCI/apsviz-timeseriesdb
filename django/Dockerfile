@@ -49,7 +49,7 @@ WORKDIR $DJANGO_HOME
 
 # install dependencies
 RUN apt-get update && apt-get install -y \
-  netcat \
+  netcat-traditional \
   binutils \
   libproj-dev \
   gdal-bin \
