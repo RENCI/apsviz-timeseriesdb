@@ -46,7 +46,6 @@ class apsviz_station_file_meta(models.Model):
     grid_name = models.TextField(30,null=False)
     model_run_id = models.TextField(40,null=True)
     timemark = models.DateTimeField(null=False)
-    variable_type = models.TextField(20,null=True)
     csvurl =  models.TextField(100,null=True)
     ingested = models.BooleanField(null=False)
 
@@ -75,20 +74,18 @@ class apsviz_station(models.Model):
     station_name = models.TextField(20,null=False) # (original station value, which is a text field )
     lat = models.FloatField() # ?
     lon = models.FloatField() # ?
-    name = models.TextField(30,null=False)
-    units = models.TextField(10,null=True) 
+    location_name = models.TextField(30,null=False)
     tz = models.TextField(8,null=False)
-    owner = models.TextField(30,null=False)
+    gauge_owner = models.TextField(30,null=False)
+    country = models.TextField(20,null=True)
     state = models.TextField(20,null=True)
     county = models.TextField(20,null=True)
-    site = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
-    node = models.TextField(20,null=True)
     geom = models.PointField(null=False)
     timemark = models.DateTimeField(null=False)
     model_run_id = models.TextField(40,null=True)
     data_source = models.TextField(200,null=False)
+    source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
     grid_name = models.TextField(30,null=False)
-    variable_type = models.TextField(20,null=True)
     csvurl =  models.TextField(100,null=True)
     
     class Meta:
