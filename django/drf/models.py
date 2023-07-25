@@ -31,6 +31,7 @@ class harvest_data_file_meta(models.Model):
     data_source = models.TextField(200,null=False)
     source_name = models.TextField(30,null=False)
     source_archive = models.TextField(30,null=False)
+    timemark = models.DateTimeField(null=True)
     ingested = models.BooleanField(null=False)
     overlap_past_file_date_time = models.BooleanField(null=False)
 
@@ -47,6 +48,19 @@ class apsviz_station_file_meta(models.Model):
     model_run_id = models.TextField(40,null=True)
     timemark = models.DateTimeField(null=False)
     csvurl =  models.TextField(100,null=True)
+    ingested = models.BooleanField(null=False)
+
+# Model for archiving the apsViz station files meta-data
+class retain_obs_station_file_meta(models.Model):
+    file_id = models.AutoField(primary_key=True)
+    dir_path = models.TextField(100,null=False)
+    file_name = models.TextField(100,null=False)
+    data_source = models.TextField(200,null=False)
+    source_name = models.TextField(30,null=False)
+    source_archive = models.TextField(30,null=False)
+    timemark = models.DateTimeField(null=False)
+    begin_date = models.DateTimeField(null=False)
+    end_date = models.DateTimeField(null=False)
     ingested = models.BooleanField(null=False)
 
 # Model for station metadata downloaded by Jeff's script
@@ -91,6 +105,28 @@ class apsviz_station(models.Model):
     class Meta:
         indexes = [models.Index(fields=['station_id', 'station_name', 'geom']),]
 
+# Model for station metadata downloaded by Jeff's script
+class retain_obs_station(models.Model):
+    station_id = models.AutoField(primary_key=True)
+    station_name = models.TextField(20,null=False) # (original station value, which is a text field )
+    lat = models.FloatField() # ?
+    lon = models.FloatField() # ?
+    location_name = models.TextField(30,null=False)
+    tz = models.TextField(8,null=False)
+    gauge_owner = models.TextField(30,null=False)
+    country = models.TextField(20,null=True)
+    state = models.TextField(20,null=True)
+    county = models.TextField(20,null=True)
+    geom = models.PointField(null=False)
+    timemark = models.DateTimeField(null=False)
+    begin_date = models.DateTimeField(null=False)
+    end_date = models.DateTimeField(null=False)
+    data_source = models.TextField(200,null=False)
+    source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+
+    class Meta:
+        indexes = [models.Index(fields=['station_id', 'station_name', 'geom']),]
+
 # Model for gauge source data, including ADCIRC data 
 class gauge_source(models.Model):
     source_id = models.AutoField(primary_key=True)
@@ -114,6 +150,9 @@ class gauge_data(models.Model):
     wind_speed = models.FloatField(null=True)
     air_pressure = models.FloatField(null=True)
     flow_volume = models.FloatField(null=True)
+
+    objects = models.Manager()
+    timescale = TimescaleManager()
 
     class Meta:
         indexes = [models.Index(fields=['obs_id', 'source_id', 'water_level', 'timemark']),]
