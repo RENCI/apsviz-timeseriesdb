@@ -47,6 +47,7 @@ class apsviz_station_file_meta(models.Model):
     grid_name = models.TextField(30,null=False)
     model_run_id = models.TextField(40,null=True)
     timemark = models.DateTimeField(null=False)
+    location_type = models.TextField(8,null=False)
     csvurl =  models.TextField(100,null=True)
     ingested = models.BooleanField(null=False)
 
@@ -58,6 +59,7 @@ class retain_obs_station_file_meta(models.Model):
     data_source = models.TextField(200,null=False)
     source_name = models.TextField(30,null=False)
     source_archive = models.TextField(30,null=False)
+    location_type = models.TextField(8,null=False)
     timemark = models.DateTimeField(null=False)
     begin_date = models.DateTimeField(null=False)
     end_date = models.DateTimeField(null=False)
@@ -98,7 +100,9 @@ class apsviz_station(models.Model):
     timemark = models.DateTimeField(null=False)
     model_run_id = models.TextField(40,null=True)
     data_source = models.TextField(200,null=False)
+    source_name = models.TextField(30,null=False)
     source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+    location_type = models.TextField(8,null=False)
     grid_name = models.TextField(30,null=False)
     csvurl =  models.TextField(100,null=True)
     
@@ -122,7 +126,9 @@ class retain_obs_station(models.Model):
     begin_date = models.DateTimeField(null=False)
     end_date = models.DateTimeField(null=False)
     data_source = models.TextField(200,null=False)
+    source_name = models.TextField(30,null=False)
     source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+    location_type = models.TextField(8,null=False)
 
     class Meta:
         indexes = [models.Index(fields=['station_id', 'station_name', 'geom']),]
