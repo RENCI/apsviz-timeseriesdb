@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
   db:
-    image: timescale/timescaledb-postgis:latest-pg13
+    image: timescale/timescaledb-ha:pg15
     ports:
       - 5432:${SQL_PORT:-5432}
     volumes:
