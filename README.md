@@ -32,7 +32,7 @@ POSTGRES_USER=apsviz_gauges
 POSTGRES_PASSWORD=apsviz_gauges  
 POSTGRES_DB=xxxxxxxxx  
 
-Add your own password as well.  
+Add your own password here as well.  
 
 ### Run docker-compose
 
