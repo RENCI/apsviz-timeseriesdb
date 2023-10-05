@@ -156,6 +156,7 @@ class gauge_data(models.Model):
     wind_speed = models.FloatField(null=True)
     air_pressure = models.FloatField(null=True)
     flow_volume = models.FloatField(null=True)
+    stream_elevation = models.FloatField(null=True)
 
     objects = models.Manager()
     timescale = TimescaleManager()
@@ -175,7 +176,8 @@ class gauge_station_source_data(models.Model):
     wave_height = models.FloatField(null=True)    
     wind_speed = models.FloatField(null=True)
     air_pressure = models.FloatField(null=True)
-    flow_volume = models.FloatField(null=True)    
+    flow_volume = models.FloatField(null=True)
+    stream_elevation = models.FloatField(null=True)
     tz = models.TextField(8,null=False)
     units = models.TextField(10,null=True)
     gauge_owner = models.TextField(200,null=False) # (noaa, ncem, usgs...)

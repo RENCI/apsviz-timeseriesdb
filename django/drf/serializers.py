@@ -10,7 +10,7 @@ class gauge_station_source_data_Serializer(GeoFeatureModelSerializer):
         model = gauge_station_source_data 
         geo_field = 'geom'
         id_field = 'obs_id'
-        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','flow_volume','tz','units','gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station','country','state','county')
+        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','flow_volume','stream_elevation','tz','units','gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station','country','state','county')
 
 # Serializer, with QueryFieldsMixin, for tables for the gauge_station_source_data model view
 # QueryFieldsMixin enables the selection of specific fields as output, but it conflicts with 
