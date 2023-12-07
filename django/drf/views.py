@@ -6,8 +6,8 @@ from django.contrib.gis.geos import GEOSGeometry,Point
 from rest_framework.decorators import action
 from url_filter.integrations.drf import DjangoFilterBackend
 from rest_framework_gis.filters import InBBoxFilter
-from .serializers import gauge_station_source_data_Serializer, gauge_timemark_Serializer, gauge_station_Serializer
-from .models import gauge_station_source_data, gauge_station
+from .serializers import gauge_station_source_data_Serializer, gauge_timemark_Serializer, gauge_station_Serializer, model_station_source_data_Serializer, model_timemark_Serializer
+from .models import gauge_station_source_data, gauge_station, model_station_source_data
 from rest_framework.pagination import PageNumberPagination
 
 # Change page size dynamically by by using the psize variable in the URL
@@ -49,6 +49,24 @@ class drf_gauge_timemark_View(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','flow_volume','stream_elevation','tz','gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station','country','state','county']
 
+class drf_gauge_station_View(viewsets.ModelViewSet):
+    pagination_class = CustomPageNumberPagination
+    queryset = gauge_station.objects.all()
+    serializer_class = gauge_station_Serializer
+    filter_backends = [DjangoFilterBackend, InBBoxFilter]
+    filter_fields = ['station_id','station_name','tz','gauge_owner','location_name','location_type','apsviz_station','country','state','county','geom']
+
+# Django view for all ADCIRC and geometry view using the model_timemark_Serializer.
+# The model_timemark_Serializer uses QueryFieldsMixin which enables the selection
+# of specific fields as output, but it conflicts with GeoFeatureModelSerializer
+# so it has to have its own serializer and view
+class drf_model_timemark_View(viewsets.ModelViewSet):
+    pagination_class = CustomPageNumberPagination
+    queryset = model_station_source_data.objects.distinct('timemark')
+    serializer_class = model_timemark_Serializer 
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = ['model_id','source_id','station_id','station_name','timemark','time','model_run_id','water_level','wave_height','tz','gauge_owner','data_source','source_name','source_instance','source_archive','location_name','location_type','apsviz_station','country','state','county']
+        
 class drf_gauge_station_View(viewsets.ModelViewSet):
     pagination_class = CustomPageNumberPagination
     queryset = gauge_station.objects.all()
