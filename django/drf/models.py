@@ -9,8 +9,8 @@ STATUS_CHOICES = (
     ('p', 'Published')
 )
 
-# Model for source meta, which is used as input for scripts
-class source_meta(models.Model):
+# Model for source observation meta, which is used as input for scripts
+class source_obs_meta(models.Model):
     data_source = models.TextField(200,null=False)
     source_name = models.TextField(20,null=False)
     source_archive = models.TextField(15,null=False)
@@ -20,8 +20,21 @@ class source_meta(models.Model):
     data_type = models.TextField(6,null=False)
     units = models.TextField(10,null=True)
 
-# Model for archiving the harvesting gauge data files meta-data
-class harvest_data_file_meta(models.Model):
+# Model for source ADCIRC model meta, which is used as input for scripts
+class source_model_meta(models.Model):
+    data_source = models.TextField(200,null=False)
+    source_name = models.TextField(20,null=False)
+    source_archive = models.TextField(15,null=False)
+    source_variable = models.TextField(15,null=False)
+    source_instance = models.TextField(25,null=False)
+    forcing_metaclass = models.TextField(15,null=False)
+    filename_prefix = models.TextField(100,null=False)
+    location_type = models.TextField(10,null=False)
+    data_type = models.TextField(6,null=False)
+    units = models.TextField(10,null=True)
+
+# Model for archiving the harvesting gauge observation data files meta-data
+class harvest_obs_file_meta(models.Model):
     file_id = models.AutoField(primary_key=True)
     dir_path = models.TextField(100,null=False)
     file_name = models.TextField(100,null=False)
@@ -32,6 +45,25 @@ class harvest_data_file_meta(models.Model):
     source_name = models.TextField(30,null=False)
     source_archive = models.TextField(30,null=False)
     timemark = models.DateTimeField(null=True)
+    process_datetime = models.DateTimeField(null=True)
+    ingested = models.BooleanField(null=False)
+    overlap_past_file_date_time = models.BooleanField(null=False)
+
+# Model for archiving the harvesting gauge observation data files meta-data
+class harvest_model_file_meta(models.Model):
+    file_id = models.AutoField(primary_key=True)
+    dir_path = models.TextField(100,null=False)
+    file_name = models.TextField(100,null=False)
+    data_date_time = models.DateTimeField(null=True) 
+    data_begin_time = models.DateTimeField(null=True)
+    data_end_time = models.DateTimeField(null=True)
+    data_source = models.TextField(200,null=False)
+    source_name = models.TextField(30,null=False)
+    source_archive = models.TextField(30,null=False)
+    source_instance = models.TextField(25,null=False)
+    forcing_metaclass = models.TextField(15,null=False)
+    timemark = models.DateTimeField(null=True)
+    process_datetime = models.DateTimeField(null=True)
     ingested = models.BooleanField(null=False)
     overlap_past_file_date_time = models.BooleanField(null=False)
 
@@ -44,6 +76,8 @@ class apsviz_station_file_meta(models.Model):
     data_source = models.TextField(200,null=False)
     source_name = models.TextField(30,null=False)
     source_archive = models.TextField(30,null=False)
+    source_instance = models.TextField(25,null=False)
+    forcing_metaclass = models.TextField(15,null=False)
     grid_name = models.TextField(30,null=False)
     model_run_id = models.TextField(40,null=True)
     timemark = models.DateTimeField(null=False)
@@ -103,6 +137,7 @@ class apsviz_station(models.Model):
     source_name = models.TextField(30,null=False)
     source_instance = models.TextField(35,null=False)
     source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+    forcing_metaclass = models.TextField(15,null=False)
     location_type = models.TextField(8,null=False)
     grid_name = models.TextField(30,null=False)
     csvurl =  models.TextField(100,null=True)
@@ -207,6 +242,7 @@ class model_source(models.Model):
     data_source = models.TextField(50,null=False) # (grid names such as hsofs_0, and just gauge) THINK ABOUT TYPE!
     source_instance = models.TextField(35,null=False)
     source_name = models.TextField(20,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)
+    forcing_metaclass = models.TextField(15,null=False)
     source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
     units = models.TextField(10,null=True)
 
@@ -236,7 +272,6 @@ class model_station_source_data(models.Model):
     station_name = models.TextField(20,null=False)
     timemark = models.DateTimeField(null=True)
     time =  TimescaleDateTimeField(interval="10 day")
-    source_instance = models.TextField(35,null=False)
     model_run_id = models.TextField(35,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)
     water_level = models.FloatField(null=True)
     wave_height = models.FloatField(null=True)
@@ -246,6 +281,8 @@ class model_station_source_data(models.Model):
     data_source = models.TextField(200,null=False) # (grid names such as hsofs_0, and just gauge) THINK ABOUT TYPE!
     source_name = models.TextField(20,null=False) # (noaa, ncem, adcirc_nowcast, adcirc_forecast?)
     source_archive = models.TextField(20,null=False) # (nomads?, contrails, renci, tacc..?)
+    source_instance = models.TextField(35,null=False)
+    forcing_metaclass = models.TextField(15,null=False)
     location_name = models.TextField(200,null=False) # (name from noaa and contrails)
     location_type = models.TextField(8,null=False)
     apsviz_station = models.BooleanField(null=False)

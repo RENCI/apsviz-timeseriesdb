@@ -10,7 +10,9 @@ class gauge_station_source_data_Serializer(GeoFeatureModelSerializer):
         model = gauge_station_source_data 
         geo_field = 'geom'
         id_field = 'obs_id'
-        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','flow_volume','stream_elevation','tz','units','gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station','country','state','county')
+        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','flow_volume',
+                  'stream_elevation','tz','units','gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station',
+                  'country','state','county')
 
 # Serializer, with QueryFieldsMixin, for tables for the gauge_station_source_data model view
 # QueryFieldsMixin enables the selection of specific fields as output, but it conflicts with 
@@ -18,7 +20,8 @@ class gauge_station_source_data_Serializer(GeoFeatureModelSerializer):
 class gauge_timemark_Serializer(QueryFieldsMixin, ModelSerializer):
     class Meta:
         model = gauge_station_source_data
-        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','tz','gauge_owner','data_source','source_name','source_archive','location_name','location_type','country','state','county')
+        fields = ('obs_id','source_id','station_id','station_name','timemark','time','water_level','tz','gauge_owner','data_source','source_name','source_archive',
+                  'location_name','location_type','country','state','county')
 
 class gauge_station_Serializer(GeoFeatureModelSerializer):
     class Meta:
@@ -34,7 +37,8 @@ class model_station_source_data_Serializer(GeoFeatureModelSerializer):
         model = model_station_source_data
         geo_field = 'geom'
         id_field = 'model_id'
-        fields = ('model_id','source_id','station_id','station_name','timemark','time','model_run_id','water_level','wave_height','tz','units','gauge_owner','data_source','source_name','source_instance','source_archive','location_name','location_type','apsviz_station','country','state','county')
+        fields = ('model_id','source_id','station_id','station_name','timemark','time','model_run_id','water_level','wave_height','tz','units','gauge_owner','data_source',
+                  'source_name','source_instance','source_archive','forcing_metaclass','location_name','location_type','apsviz_station','country','state','county')
 
 # Serializer, with QueryFieldsMixin, for tables for the gauge_station_source_data model view
 # QueryFieldsMixin enables the selection of specific fields as output, but it conflicts with
@@ -42,4 +46,5 @@ class model_station_source_data_Serializer(GeoFeatureModelSerializer):
 class model_timemark_Serializer(QueryFieldsMixin, ModelSerializer):
     class Meta:
         model = model_station_source_data
-        fields = ('model_id','source_id','station_id','station_name','timemark','time','model_run_id','water_level','tz','gauge_owner','data_source','source_name','source_instance','source_archive','location_name','location_type','country','state','county')
+        fields = ('model_id','source_id','station_id','station_name','timemark','time','model_run_id','water_level','tz','gauge_owner','data_source','source_name',
+                  'source_instance','source_archive','forcing_metaclass','location_name','location_type','country','state','county')
