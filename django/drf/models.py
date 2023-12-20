@@ -44,8 +44,10 @@ class harvest_obs_file_meta(models.Model):
     data_source = models.TextField(200,null=False)
     source_name = models.TextField(30,null=False)
     source_archive = models.TextField(30,null=False)
+    source_variable = models.TextField(15,null=False)
+    location_type = models.TextField(10,null=False)
     timemark = models.DateTimeField(null=True)
-    process_datetime = models.DateTimeField(null=True)
+    processing_datetime = models.DateTimeField(null=True)
     ingested = models.BooleanField(null=False)
     overlap_past_file_date_time = models.BooleanField(null=False)
 
@@ -63,7 +65,7 @@ class harvest_model_file_meta(models.Model):
     source_instance = models.TextField(25,null=False)
     forcing_metaclass = models.TextField(15,null=False)
     timemark = models.DateTimeField(null=True)
-    process_datetime = models.DateTimeField(null=True)
+    processing_datetime = models.DateTimeField(null=True)
     ingested = models.BooleanField(null=False)
     overlap_past_file_date_time = models.BooleanField(null=False)
 
@@ -191,7 +193,6 @@ class gauge_data(models.Model):
     wave_height = models.FloatField(null=True)
     wind_speed = models.FloatField(null=True)
     air_pressure = models.FloatField(null=True)
-    flow_volume = models.FloatField(null=True)
     stream_elevation = models.FloatField(null=True)
 
     objects = models.Manager()
@@ -212,7 +213,6 @@ class gauge_station_source_data(models.Model):
     wave_height = models.FloatField(null=True)    
     wind_speed = models.FloatField(null=True)
     air_pressure = models.FloatField(null=True)
-    flow_volume = models.FloatField(null=True)
     stream_elevation = models.FloatField(null=True)
     tz = models.TextField(8,null=False)
     units = models.TextField(10,null=True)

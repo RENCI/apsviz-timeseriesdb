@@ -22,7 +22,7 @@ class drf_gauge_station_source_data_View(viewsets.ModelViewSet):
     queryset = gauge_station_source_data.objects.all().order_by('time')
     serializer_class = gauge_station_source_data_Serializer
     filter_backends = [DjangoFilterBackend, InBBoxFilter]
-    filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','flow_volume','stream_elevation','tz','units','gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station','country','state','county','geom']
+    filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','stream_elevation','tz','units','gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station','country','state','county','geom']
 
     # Function to enable search by distance from lon/lat point
     @action(detail=False, methods=['get'])
@@ -47,7 +47,7 @@ class drf_gauge_timemark_View(viewsets.ModelViewSet):
     queryset = gauge_station_source_data.objects.distinct('timemark')
     serializer_class = gauge_timemark_Serializer
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','flow_volume','stream_elevation','tz',
+    filter_fields = ['obs_id','source_id','station_id','station_name','timemark','time','water_level','wave_height','wind_speed','air_pressure','stream_elevation','tz',
                      'gauge_owner','data_source','source_name','source_archive','location_name','location_type','apsviz_station','country','state','county']
 
 class drf_gauge_station_View(viewsets.ModelViewSet):
