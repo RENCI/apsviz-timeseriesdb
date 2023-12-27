@@ -30,7 +30,6 @@ class source_model_meta(models.Model):
     forcing_metaclass = models.TextField(15,null=False)
     filename_prefix = models.TextField(100,null=False)
     location_type = models.TextField(10,null=False)
-    data_type = models.TextField(6,null=False)
     units = models.TextField(10,null=True)
 
 # Model for archiving the harvesting gauge observation data files meta-data
@@ -64,6 +63,8 @@ class harvest_model_file_meta(models.Model):
     source_archive = models.TextField(30,null=False)
     source_instance = models.TextField(25,null=False)
     forcing_metaclass = models.TextField(15,null=False)
+    advisory = models.TextField(40,null=True)
+    model_run_id = models.TextField(40,null=True)
     timemark = models.DateTimeField(null=True)
     processing_datetime = models.DateTimeField(null=True)
     ingested = models.BooleanField(null=False)
