@@ -17,7 +17,6 @@ class source_obs_meta(models.Model):
     source_variable = models.TextField(15,null=False)
     filename_prefix = models.TextField(100,null=False)
     location_type = models.TextField(10,null=False)
-    data_type = models.TextField(6,null=False)
     units = models.TextField(10,null=True)
 
 # Model for source ADCIRC model meta, which is used as input for scripts
