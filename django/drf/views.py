@@ -67,7 +67,7 @@ class drf_model_timemark_View(viewsets.ModelViewSet):
     serializer_class = model_timemark_Serializer 
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['model_id','source_id','station_id','station_name','timemark','time','model_run_id','water_level','wave_height','tz','gauge_owner','data_source',
-                     'source_name','source_instance','source_archive','forcing_metaclass','location_name','location_type','apsviz_station','country','state','county']
+                     'source_name','source_instance','source_archive','forcing_metclass','location_name','location_type','apsviz_station','country','state','county']
         
 class drf_gauge_station_View(viewsets.ModelViewSet):
     pagination_class = CustomPageNumberPagination
